@@ -12,10 +12,72 @@
       This is a paragraph
     </p>
     <script>
+
     //this selects the paragraph element but doesn't do anything to it.
 
     //The .text method changes the text.
       d3.select("p").text("Hello World");
+      //calling the d3 object, and using its methods to select the body, append a paragraph tag to the slection, and change the text of that paragraph tag to the text in the quotes
+      d3.select("body")
+        .append("p")
+
+        .style("color", "red")
+        //a href= , href is an attr
+        .text("Hey, whats up?");
+
+
+      //SVG - scalable vector graphics, a way to create 2d graphics on aour webpage. Make a shape on a canvas or container.
+      var canvas  =  d3.select("body")
+      //svg uis an image format for displaying graphical information onf the webpage
+          .append("svg")
+          .attr("width", 500)
+          .attr("height", 500)//end of svg container var canvas
+          .attr("border", 1);
+      var circle = canvas.append("circle")
+      //horizontal coords - be positioned in the middle of the svg container. c stanjds for coordinates
+          .attr("cx", 250)
+          .attr("cy", 250)
+          //radius
+          .attr("r", 50)
+          .attr("fill", "blue");
+      //if no cx or cy is given then the shape will be drawn sin the top lefthand corner of the canvas
+      var rectangle = canvas.append("rect")
+      .attr("width", 100)
+      .attr("height", 50);
+      //radius
+
+      var line = canvas.append("line")
+        .attr("x1", 0)
+        .attr("y1", 100)
+        .attr("x2", 400)
+        .attr("y2", 400)
+        .attr("stroke", "green")
+        .attr("stroke-width", 10);
+
+
+
+
+        var dataArray = [20, 40, 50];
+        var canvas2  =  d3.select("body")
+        //in order to append various things and have it work, you need to do in in order, so for example you're not appending a header with text to an attribute, you're appedning something directly to a slection.
+        .append("h1").text("Bar Graphs on Canavas 2")
+        //svg uis an image format for displaying graphical information onf the webpage svg starts drawing from the topleft
+            .append("svg")
+            .attr("width", 500)
+            .attr("height", 500);//end of svg container var canvas
+            //selectAll selects all emelemts that you specify here between the brackets. If you sleect all rect, then you select all rectangles on the page. If there are no rectangles on the page then it returns an empty selection
+            //.data allows us to specify where our data is comming from . If there were two rectangles on the page, the data function would bind the data, in this case, dataArray, to both of those rectangles.
+            //enter returns placeholders from each each data, if there are elements for which there are no corresponding DOM elements (in this case rectangles) on the page. If there were no rectangles on the page, then the enter method would return placeholders for each data point in the dataArray.
+        var bars = canvas2.selectAll("rect")
+            .data(dataArray)
+            .enter()
+              //for each of the placeholders of datapoints, we'll append a rectangle.
+              .append("rect")
+              //we want the width to be a fucntion of the data @params: d is the data element in returned by enter.
+              .attr("width", function(d){return d * 10})
+              .attr("height", 50)
+              //where @param i is the index of each datapoint in the array
+              .attr("y", function(d,i){ return i*100});
     </script>
 
   </body>
